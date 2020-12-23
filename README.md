@@ -15,7 +15,7 @@ To use the tool, please run:
 ```
 buddy init [new-laravel-project]
 ```
-and follow prompts.
+and follow prompts. Database credentials are saved and you won't have to enter or set them ever again. eg. If you choose to use `mysql` connection for your database, the credentials are stored and the next time you choose same connection, they are auto-populated in your `.env` file. Cool!
 
 ### Security
 
