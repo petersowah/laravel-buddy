@@ -1,0 +1,48 @@
+{
+    "name": "petersowah/laravel-buddy",
+    "description": "A simple cli tool for getting started on Laravel projects",
+    "keywords": ["framework", "laravel-buddy", "buddy", "console", "cli"],
+    "homepage": "https://github.com/petersowah",
+    "type": "project",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/petersowah/laravel-buddy/issues",
+        "source": "https://github.com/petersowah/laravel-buddy"
+    },
+    "authors": [
+        {
+            "name": "Peter Sowah",
+            "email": "petersowah@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laminas/laminas-text": "^2.8",
+        "nunomaduro/laravel-console-menu": "^3.2",
+        "padraic/phar-updater": "^1.0.6",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "laravel-zero/framework": "^8.0",
+        "mockery/mockery": "^1.4.2",
+        "pestphp/pest": "^0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "bin": ["builds/laravel-buddy"]
+}
