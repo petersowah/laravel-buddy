@@ -13,7 +13,7 @@ composer global require petersowah/laravel-buddy
 ### Usage
 To use the tool, please run:
 ```
-laravel-buddy init [new-laravel-project]
+buddy init [new-laravel-project]
 ```
 and follow prompts.
 
