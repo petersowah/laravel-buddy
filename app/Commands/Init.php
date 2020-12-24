@@ -4,6 +4,7 @@ namespace App\Commands;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
 class Init extends Command
@@ -180,9 +181,13 @@ class Init extends Command
                     if (strpos(file_get_contents($this->getConfigFile()), $connection)) {
                         $this->info('Getting credentials from config file...');
 
+                        $db = $this->ask('Please enter database name for your project...');
+
                         $config = file_get_contents($this->getConfigFile());
 
                         $config_array = json_decode($config, true);
+
+                        $config_array[$connection]['DB_DATABASE'] = $db;
 
                         $db_array = [
                             $connection => $config_array[$connection]
@@ -212,6 +217,12 @@ class Init extends Command
                 }
             }
         });
+
+        $this->setApplicationKey();
+
+        $this->info('Project setup complete!');
+
+        $this->notify('Laravel Buddy', 'Your Laravel project setup is complete!');
     }
 
     /**
@@ -228,10 +239,6 @@ class Init extends Command
         $this->writeToEnv($dbInfo[$connection]);
 
         $this->storeDatabaseInfo($dbInfo);
-
-        $this->info('Project setup complete!');
-
-        $this->notify('Laravel Buddy', 'Your Laravel project setup is complete!');
     }
 
     /**
@@ -314,8 +321,15 @@ class Init extends Command
 
             $replace = "$key={$value}";
 
-//            file_put_contents($this->getDirectory() . '.env', preg_replace($pattern, $replace, file_get_contents('.env')));
             File::put('.env', preg_replace($pattern, $replace, File::get('.env')));
         }
+    }
+
+    /**
+     * Generate new app key for Laravel application
+     */
+    protected function setApplicationKey()
+    {
+        $this->info(shell_exec(PHP_BINARY.' artisan key:generate'));
     }
 }
