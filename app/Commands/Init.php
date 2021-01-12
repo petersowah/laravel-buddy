@@ -107,17 +107,6 @@ class Init extends Command
         });
 
         $this->task("Installing Laravel", function () {
-            // check if composer is installed. If not, install composer.
-            $composer = $this->findComposer();
-
-            if (!$composer) {
-                $installComposer = $this->ask('Composer is missing from your system. Do you want to install Composer?');
-
-                if ($installComposer) {
-                    $this->installComposer();
-                }
-            }
-
             $this->info($this->installLaravel());
         });
 
@@ -194,9 +183,7 @@ class Init extends Command
                         ];
 
                         $this->setDatabaseCredentials($db_array);
-                    }
-
-                    if (! strpos(file_get_contents($this->getConfigFile()), $connection)) {
+                    }else{
                         $database = $this->ask('Please enter database name');
                         $db_username = $this->ask('Please enter your database username');
                         $db_password = $this->ask('Please enter your database password');
@@ -266,9 +253,7 @@ class Init extends Command
 
         if (filesize($this->getConfigFile()) == 0) {
             file_put_contents($this->getConfigFile(), json_encode($db_info, JSON_FORCE_OBJECT));
-        }
-
-        if (filesize($this->getConfigFile()) != 0) {
+        }else{
             if (strpos(file_get_contents($this->getConfigFile()), $connection)) {
                 return;
             }
@@ -281,16 +266,6 @@ class Init extends Command
 
             file_put_contents($this->getConfigFile(), json_encode($newConfig, JSON_FORCE_OBJECT));
         }
-    }
-
-    /**
-     * Install composer when it's missing from system
-     */
-    protected function installComposer()
-    {
-        $composer_script_path = base_path() . 'composer-installer';
-
-        $this->info(shell_exec("php {$composer_script_path}"));
     }
 
     /**
