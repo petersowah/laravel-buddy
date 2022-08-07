@@ -16,16 +16,16 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "laminas/laminas-text": "^2.8",
-        "nunomaduro/laravel-console-menu": "^3.2",
-        "padraic/phar-updater": "^1.0.6",
-        "ext-json": "*"
+        "php": "^8.0",
+        "ext-json": "*",
+        "laminas/laminas-text": "^2.9",
+        "laravel-zero/phar-updater": "^1.2",
+        "nunomaduro/laravel-console-menu": "^3.3"
     },
     "require-dev": {
-        "laravel-zero/framework": "^8.0",
+        "laravel-zero/framework": "^9.0",
         "mockery/mockery": "^1.4.2",
-        "pestphp/pest": "^0.3"
+        "pestphp/pest": "^1.21"
     },
     "autoload": {
         "psr-4": {
@@ -40,7 +40,10 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
