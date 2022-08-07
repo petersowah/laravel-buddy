@@ -2,9 +2,7 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
 class Init extends Command
@@ -26,12 +24,12 @@ class Init extends Command
 
     private $project;
 
-    private $directory;
+    private string $directory;
 
-    private $config_path;
+    private string $config_path;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getConfigPath()
     {
@@ -86,7 +84,7 @@ class Init extends Command
     /**
      * get app directory
      *
-     * @return mixed
+     * @return string
      */
     public function getDirectory()
     {
@@ -181,8 +179,6 @@ class Init extends Command
                         $db_array = [
                             $connection => $config_array[$connection]
                         ];
-
-                        $this->setDatabaseCredentials($db_array);
                     }else{
                         $database = $this->ask('Please enter database name');
                         $db_username = $this->ask('Please enter your database username');
@@ -198,9 +194,9 @@ class Init extends Command
                                 'DB_PASSWORD' => $db_password
                             ]
                         ];
-
-                        $this->setDatabaseCredentials($db_array);
                     }
+
+                    $this->setDatabaseCredentials($db_array);
                 }
             }
         });
@@ -245,7 +241,7 @@ class Init extends Command
     }
 
     /**
-     * @param $db_info
+     * @param array $db_info
      */
     protected function storeDatabaseInfo(array $db_info)
     {
