@@ -13,7 +13,7 @@ composer global require petersowah/laravel-buddy
 ### Usage
 To use the tool, please run:
 ```
-buddy init [new-laravel-project]
+laravel-buddy init [new-laravel-project]
 ```
 and follow prompts. This will get your database credentials and save to a file for retrieval on your next project and will be pre-populated for you when you choose same connection, say, `MySQL`.
 
