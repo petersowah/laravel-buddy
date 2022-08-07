@@ -50,7 +50,7 @@ class Init extends Command
      */
     public function setConfigPath(): void
     {
-        $this->config_path = getenv("HOME") . '/.laravel-buddy';
+        $this->config_path = getenv("HOME") . '/.config/laravel-buddy';
     }
 
     /**
