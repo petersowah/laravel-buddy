@@ -47,5 +47,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": ["builds/buddy"]
+    "bin": ["builds/laravel-buddy"]
 }

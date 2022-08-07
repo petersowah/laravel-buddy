@@ -31,7 +31,7 @@ class Init extends Command
     /**
      * @return string
      */
-    public function getConfigPath()
+    public function getConfigPath(): string
     {
         return $this->config_path;
     }
@@ -39,7 +39,7 @@ class Init extends Command
     /**
      * Get path of config file
      */
-    public function getConfigFile()
+    public function getConfigFile(): string
     {
         return $this->getConfigPath() . '/db-config.json';
     }
