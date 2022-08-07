@@ -22,7 +22,7 @@ class Init extends Command
      */
     protected $description = 'Initialise Laravel Buddy';
 
-    private $project;
+    private string $projectName;
 
     private string $directory;
 
@@ -54,21 +54,21 @@ class Init extends Command
     /**
      * Get project name
      *
-     * @return null
+     * @return string
      */
-    public function getProject()
+    public function getProjectName(): string
     {
-        return $this->project;
+        return $this->projectName;
     }
 
     /**
      * Set project name
      *
-     * @param null $project
+     * @param string $projectName
      */
-    public function setProject($project): void
+    public function setProjectName(string $projectName): void
     {
-        $this->project = $project;
+        $this->projectName = $projectName;
     }
 
     /**
@@ -86,7 +86,7 @@ class Init extends Command
      *
      * @return string
      */
-    public function getDirectory()
+    public function getDirectory(): string
     {
         return $this->directory;
     }
@@ -96,11 +96,11 @@ class Init extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        $this->task("Intitialising", function () {
+        $this->task("Initialising", function () {
             $this->setDirectory($this->argument('project'));
-            $this->setProject($this->argument('project'));
+            $this->setProjectName($this->argument('project'));
             $this->setConfigPath();
         });
 
@@ -217,7 +217,7 @@ class Init extends Command
     {
         $connection = collect($dbInfo)->first()['DB_CONNECTION'];
 
-        chdir($this->getProject());
+        chdir($this->getProjectName());
 
         $this->writeToEnv($dbInfo[$connection]);
 
@@ -229,7 +229,7 @@ class Init extends Command
      *
      * @return string
      */
-    protected function findComposer()
+    protected function findComposer(): string
     {
         $composer_path = getcwd() . '/composer.phar';
 
