@@ -26,14 +26,14 @@ class Init extends Command
 
     private string $directory;
 
-    private string $config_path;
+    private string $configPath;
 
     /**
      * @return string
      */
     public function getConfigPath(): string
     {
-        return $this->config_path;
+        return $this->configPath;
     }
 
     /**
@@ -48,7 +48,7 @@ class Init extends Command
      */
     public function setConfigPath(): void
     {
-        $this->config_path = getenv("HOME") . '/.config/laravel-buddy';
+        $this->configPath = getenv("HOME") . '/.config/laravel-buddy';
     }
 
     /**
@@ -151,7 +151,7 @@ class Init extends Command
                 break;
         }
 
-            if ($connection == 'sqlite') {
+            if ($connection === 'sqlite') {
                 file_put_contents($this->getDirectory() . '.env', preg_replace("/(DB_CONNECTION=.*)/", 'DB_CONNECTION=sqlite', file_get_contents($this->getDirectory()  . '.env')));
             }
 
@@ -247,7 +247,7 @@ class Init extends Command
     {
         $connection = collect($db_info)->first()['DB_CONNECTION'];
 
-        if (filesize($this->getConfigFile()) == 0) {
+        if (filesize($this->getConfigFile()) === 0) {
             file_put_contents($this->getConfigFile(), json_encode($db_info, JSON_FORCE_OBJECT));
         }else{
             if (strpos(file_get_contents($this->getConfigFile()), $connection)) {
@@ -290,7 +290,7 @@ class Init extends Command
         foreach ($dbInfo as $key => $value) {
             $pattern = "/({$key}=.*)/";
 
-            $replace = "$key={$value}";
+            $replace = "$key=$value";
 
             File::put('.env', preg_replace($pattern, $replace, File::get('.env')));
         }
