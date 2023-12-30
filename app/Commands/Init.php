@@ -76,7 +76,7 @@ class Init extends Command
      *
      * @param $project
      */
-    public function setDirectory($project)
+    public function setDirectory($project): void
     {
         $this->directory = base_path($project) . '/';
     }
@@ -98,7 +98,7 @@ class Init extends Command
      */
     public function handle(): void
     {
-        $this->task("Initialising", function () {
+        $this->task("Initialising...", function () {
             $this->setDirectory($this->argument('project'));
             $this->setProjectName($this->argument('project'));
             $this->setConfigPath();
@@ -123,36 +123,42 @@ class Init extends Command
             $connection = null;
 
             switch ($option) {
-            case 0:
-                $this->info('You selected mysql/mariadb as default database for your project.');
-                $port = 3306;
-                $host = '127.0.0.1';
-                $connection = 'mysql';
+                case 0:
+                    $this->info('You selected mysql/mariadb as default database for your project.');
+                    $port = 3306;
+                    $host = '127.0.0.1';
+                    $connection = 'mysql';
 
-                break;
-            case 1:
-                $this->info('You selected postgresql as default database for your project.');
-                $port = 5432;
-                $host = '127.0.0.1';
-                $connection = 'pgsql';
+                    break;
+                case 1:
+                    $this->info('You selected postgresql as default database for your project.');
+                    $port = 5432;
+                    $host = '127.0.0.1';
+                    $connection = 'pgsql';
 
-                break;
-            case 2:
-                $this->info('You selected sqlite as default database for your project.');
-                $connection = 'sqlite';
+                    break;
+                case 2:
+                    $this->info('You selected sqlite as default database for your project.');
+                    $connection = 'sqlite';
 
-                break;
-            case 3:
-                $this->info('You selected Microsoft sql server as default database for your project.');
-                $port = 1433;
-                $host = '127.0.0.1';
-                $connection = 'sqlsrv';
+                    break;
+                case 3:
+                    $this->info('You selected Microsoft sql server as default database for your project.');
+                    $port = 1433;
+                    $host = '127.0.0.1';
+                    $connection = 'sqlsrv';
 
-                break;
-        }
+                    break;
+            }
 
             if ($connection === 'sqlite') {
-                file_put_contents($this->getDirectory() . '.env', preg_replace("/(DB_CONNECTION=.*)/", 'DB_CONNECTION=sqlite', file_get_contents($this->getDirectory()  . '.env')));
+                file_put_contents(
+                    $this->getDirectory() . '.env',
+                    preg_replace(
+                        "/(DB_CONNECTION=.*)/",
+                        'DB_CONNECTION=sqlite', file_get_contents($this->getDirectory()  . '.env')
+                    )
+                );
             }
 
             if ($connection != 'sqlite') {
@@ -213,7 +219,7 @@ class Init extends Command
      *
      * @param array $dbInfo
      */
-    protected function setDatabaseCredentials(array $dbInfo)
+    protected function setDatabaseCredentials(array $dbInfo): void
     {
         $connection = collect($dbInfo)->first()['DB_CONNECTION'];
 
@@ -243,7 +249,7 @@ class Init extends Command
     /**
      * @param array $db_info
      */
-    protected function storeDatabaseInfo(array $db_info)
+    protected function storeDatabaseInfo(array $db_info): void
     {
         $connection = collect($db_info)->first()['DB_CONNECTION'];
 
@@ -267,7 +273,7 @@ class Init extends Command
     /**
      * Install Laravel framework
      */
-    protected function installLaravel()
+    protected function installLaravel(): void
     {
         $install_laravel = $this->findComposer() . " create-project laravel/laravel {$this->argument('project')}";
 
@@ -299,7 +305,7 @@ class Init extends Command
     /**
      * Generate new app key for Laravel application
      */
-    protected function setApplicationKey()
+    protected function setApplicationKey(): void
     {
         $this->info(shell_exec(PHP_BINARY.' artisan key:generate'));
     }
