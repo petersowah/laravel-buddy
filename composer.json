@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.3",
         "ext-json": "*",
         "laminas/laminas-text": "^2.9",
         "laravel-zero/phar-updater": "^1.2",
